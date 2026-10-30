@@ -23,6 +23,7 @@ import { useStore, getLevelInfo } from '@/lib/store';
 import { ThemeStudioModal } from './ThemeStudioModal';
 import { GrokKeySettingsModal } from '@/features/ai-engine/components/GrokKeySettingsModal';
 import { ThemeQuickSwitcher } from './ThemeQuickSwitcher';
+import { LayoutSwitcher } from '@/components/layouts/LayoutSwitcher';
 import { NavMegaMenu } from './NavMegaMenu';
 import { MobileNav } from './MobileNav';
 import { ScrollProgress } from './ScrollProgress';
@@ -212,6 +213,8 @@ export function Header({ currentPath }: { currentPath: string }) {
                 XP
               </span>
             </Link>
+
+            <LayoutSwitcher className="hidden md:inline-flex" />
 
             <ThemeQuickSwitcher />
 

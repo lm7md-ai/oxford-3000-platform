@@ -73,7 +73,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" data-theme="oxford-ink" data-archetype="oxford-heritage" suppressHydrationWarning>
+    <html
+      lang="ar"
+      dir="rtl"
+      data-theme="oxford-ink"
+      data-archetype="oxford-heritage"
+      data-layout="editorial"
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -101,6 +108,8 @@ export default function RootLayout({
               var theme=String(s.themeId||'');
               var archetype=map[theme]||theme;
               if(archetype)document.documentElement.setAttribute('data-archetype',archetype);
+              var layout=s.layoutId;
+              if(layout==='editorial'||layout==='workspace'||layout==='showcase'){document.documentElement.setAttribute('data-layout',layout);}
               if(theme)document.documentElement.setAttribute('data-theme',theme);
               if(s.isDarkMode)document.documentElement.classList.add('dark');
               if(s.reduceMotion)document.documentElement.classList.add('reduce-motion');

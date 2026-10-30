@@ -5,6 +5,7 @@ import { Palette, Sparkles, Layers, Move3d, Wand2 } from 'lucide-react';
 import { PageShell } from '@/components/shared/PageShell';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { DesignLab } from '@/features/design-lab/components/DesignLab';
+import { LayoutGallery } from '@/components/layouts/LayoutGallery';
 import { useStore } from '@/lib/store';
 import { getThemeById } from '@/styles/themes';
 import { ARCHETYPES, DESIGN_GENERATIONS, getArchetypeMeta } from '@/styles/archetypes';
@@ -48,6 +49,8 @@ export default function DesignPage() {
           { label: 'نماذج جاهزة', value: THEMES.length, icon: <Wand2 className="h-3 w-3" /> },
         ]}
       />
+
+      <LayoutGallery />
 
       <DesignLab />
     </PageShell>

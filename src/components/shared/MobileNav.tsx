@@ -20,6 +20,7 @@ import { ARCHETYPES } from '@/styles/archetypes';
 import { THEMES, getThemeById } from '@/styles/themes';
 import { useStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
+import { LayoutSwitcher } from '@/components/layouts/LayoutSwitcher';
 
 interface MobileNavProps {
   open: boolean;
@@ -219,6 +220,13 @@ export function MobileNav({
                   );
                 })}
               </div>
+              <div className="mt-3 border-t border-border pt-3">
+                <p className="mb-2 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  واجهة الموقع
+                </p>
+                <LayoutSwitcher variant="list" />
+              </div>
+
               <button
                 type="button"
                 onClick={() => {

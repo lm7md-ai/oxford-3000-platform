@@ -4,6 +4,10 @@ import * as React from 'react';
 import { Header } from '@/components/shared/Header';
 import { AmbientBackdrop } from '@/components/shared/AmbientBackdrop';
 import { BackToTop } from '@/components/shared/ScrollProgress';
+import { WorkspaceShell } from '@/components/layouts/WorkspaceShell';
+import { ShowcaseShell } from '@/components/layouts/ShowcaseShell';
+import { useStore } from '@/lib/store';
+import { getLayoutMeta } from '@/lib/layouts';
 import { cn } from '@/lib/utils';
 
 interface PageShellProps {
@@ -15,10 +19,27 @@ interface PageShellProps {
 }
 
 /**
- * Standard workspace frame: ambient atmosphere, animated header, a fluid
- * content column with a page-enter transition, and a back-to-top affordance.
+ * The frame decides *which site you are on*: the editorial masthead, the
+ * workspace rail, or the showcase pill. Content is identical — structure is not.
  */
 export function PageShell({ currentPath, children, className, wide = false }: PageShellProps) {
+  const layoutId = useStore((state) => state.layoutId);
+  const layout = getLayoutMeta(layoutId);
+
+  const content = (
+    <div className={cn(wide ? 'space-y-7 sm:space-y-8' : 'space-y-7 sm:space-y-8', className)}>
+      {children}
+    </div>
+  );
+
+  if (layout.id === 'workspace') {
+    return <WorkspaceShell currentPath={currentPath}>{content}</WorkspaceShell>;
+  }
+
+  if (layout.id === 'showcase') {
+    return <ShowcaseShell currentPath={currentPath}>{content}</ShowcaseShell>;
+  }
+
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-clip">
       <AmbientBackdrop />
@@ -32,11 +53,10 @@ export function PageShell({ currentPath, children, className, wide = false }: Pa
         id="main-content"
         className={cn(
           'anim-rise relative z-10 flex-1 py-7 sm:py-9',
-          wide ? 'container max-w-[1560px]' : 'container',
-          className
+          wide ? 'container max-w-[1560px]' : 'container'
         )}
       >
-        <div className="space-y-7 sm:space-y-8">{children}</div>
+        {content}
       </main>
 
       <BackToTop />

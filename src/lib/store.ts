@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { DEFAULT_THEME_ID } from '../styles/themes';
+import { DEFAULT_LAYOUT_ID, isLayoutId } from './layouts';
 
 /* =========================================================================
  * GLOBAL LEARNING STORE
@@ -18,6 +19,8 @@ export interface UserProgressState {
   currentStreakDays: number;
   lastStudyDate: string;
   themeId: string;
+  /** Structural interface: 'editorial' | 'workspace' | 'showcase' */
+  layoutId: string;
   isDarkMode: boolean;
   audioPlaybackRate: number;
   geminiApiKey: string;
@@ -39,6 +42,7 @@ export interface UserProgressState {
   toggleFavorite: (wordId: number) => void;
   addXp: (amount: number) => void;
   setThemeId: (id: string) => void;
+  setLayoutId: (id: string) => void;
   toggleDarkMode: () => void;
   setDarkMode: (value: boolean) => void;
   setAudioPlaybackRate: (rate: number) => void;
@@ -67,6 +71,7 @@ const DEFAULT_STATE = {
   currentStreakDays: 1,
   lastStudyDate: today(),
   themeId: DEFAULT_THEME_ID,
+  layoutId: DEFAULT_LAYOUT_ID,
   isDarkMode: false,
   audioPlaybackRate: 0.9,
   geminiApiKey: '',
@@ -90,6 +95,7 @@ const PERSISTED_KEYS: (keyof UserProgressState)[] = [
   'currentStreakDays',
   'lastStudyDate',
   'themeId',
+  'layoutId',
   'isDarkMode',
   'audioPlaybackRate',
   'geminiApiKey',
@@ -136,6 +142,7 @@ export function mergePersistedProgress(raw: unknown): Partial<UserProgressState>
   }
   if (typeof raw.lastStudyDate === 'string') merged.lastStudyDate = raw.lastStudyDate;
   if (typeof raw.themeId === 'string' && raw.themeId) merged.themeId = raw.themeId;
+  if (isLayoutId(raw.layoutId)) merged.layoutId = raw.layoutId;
   if (typeof raw.isDarkMode === 'boolean') merged.isDarkMode = raw.isDarkMode;
   if (typeof raw.audioPlaybackRate === 'number' && raw.audioPlaybackRate > 0) {
     merged.audioPlaybackRate = raw.audioPlaybackRate;
@@ -244,6 +251,14 @@ export const useStore = create<UserProgressState>((set, get) => {
     setThemeId: (id: string) => {
       if (!id) return;
       commit({ themeId: id });
+    },
+
+    setLayoutId: (id: string) => {
+      if (!isLayoutId(id)) return;
+      commit({ layoutId: id });
+      if (typeof document !== 'undefined') {
+        document.documentElement.setAttribute('data-layout', id);
+      }
     },
 
     toggleDarkMode: () => {
