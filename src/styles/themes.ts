@@ -1,9 +1,6 @@
-export type DesignArchetype =
-  | 'swiss'
-  | 'neo-brutalism'
-  | 'organic-terracotta'
-  | 'cyber-terminal'
-  | 'oxford-heritage';
+import type { DesignArchetype } from './archetypes';
+
+export type { DesignArchetype } from './archetypes';
 
 export interface ThemeConfig {
   id: string;
@@ -969,6 +966,187 @@ export const THEMES: ThemeConfig[] = [
       ring: '#86EFAC',
     },
   },
+
+  /* =======================================================================
+   * GENERATION 4 — AURORA LIQUID GLASS (brand-new modern design language)
+   * ===================================================================== */
+  {
+    id: 'aurora-liquid-glass',
+    name: 'Aurora Liquid Glass',
+    category: 'modern',
+    archetype: 'liquid-aurora',
+    visualMood:
+      'Living glass strata, slow auroral light, chromatic refraction, luminous depth',
+    headingFont: 'Sora, sans-serif',
+    bodyFont: 'Manrope, sans-serif',
+    radius: '1.25rem',
+    borderStyle: '1px solid',
+    light: {
+      background: '#F2F5FF',
+      surface: 'rgba(255,255,255,0.72)',
+      foreground: '#0B1026',
+      primary: '#6D5BF6',
+      primaryForeground: '#FFFFFF',
+      accent: '#06B6D4',
+      accentForeground: '#04202B',
+      muted: 'rgba(226,232,255,0.65)',
+      mutedForeground: '#4C5470',
+      border: 'rgba(109,91,246,0.18)',
+      ring: '#6D5BF6',
+    },
+    dark: {
+      background: '#05070F',
+      surface: 'rgba(20,27,52,0.55)',
+      foreground: '#EEF2FF',
+      primary: '#A78BFA',
+      primaryForeground: '#05070F',
+      accent: '#22D3EE',
+      accentForeground: '#04111A',
+      muted: 'rgba(30,41,77,0.5)',
+      mutedForeground: '#A5B4D4',
+      border: 'rgba(167,139,250,0.22)',
+      ring: '#A78BFA',
+    },
+  },
+  {
+    id: 'prism-chrome',
+    name: 'Prism Chrome Studio',
+    category: 'modern',
+    archetype: 'liquid-aurora',
+    visualMood:
+      'Polished chrome, iridescent prism edges, studio daylight, precision glass',
+    headingFont: 'Sora, sans-serif',
+    bodyFont: 'Manrope, sans-serif',
+    radius: '1rem',
+    borderStyle: '1px solid',
+    light: {
+      background: '#F7F8FC',
+      surface: 'rgba(255,255,255,0.85)',
+      foreground: '#111827',
+      primary: '#4F46E5',
+      primaryForeground: '#FFFFFF',
+      accent: '#EC4899',
+      accentForeground: '#FFFFFF',
+      muted: '#EEF1F9',
+      mutedForeground: '#58607A',
+      border: 'rgba(17,24,39,0.10)',
+      ring: '#4F46E5',
+    },
+    dark: {
+      background: '#080A12',
+      surface: 'rgba(22,26,40,0.70)',
+      foreground: '#F5F7FF',
+      primary: '#818CF8',
+      primaryForeground: '#080A12',
+      accent: '#F472B6',
+      accentForeground: '#080A12',
+      muted: 'rgba(35,41,61,0.60)',
+      mutedForeground: '#B4BCD4',
+      border: 'rgba(129,140,248,0.22)',
+      ring: '#818CF8',
+    },
+  },
+  {
+    id: 'nocturne-aurora',
+    name: 'Nocturne Aurora Deep',
+    category: 'modern',
+    archetype: 'liquid-aurora',
+    visualMood:
+      'Midnight ocean glass, bioluminescent cyan, violet aurora ribbons over slate',
+    headingFont: 'Sora, sans-serif',
+    bodyFont: 'Manrope, sans-serif',
+    radius: '1.375rem',
+    borderStyle: '1px solid',
+    light: {
+      background: '#EEF6FF',
+      surface: 'rgba(255,255,255,0.80)',
+      foreground: '#0A1B2E',
+      primary: '#0284C7',
+      primaryForeground: '#FFFFFF',
+      accent: '#7C3AED',
+      accentForeground: '#FFFFFF',
+      muted: '#DBEAFE',
+      mutedForeground: '#33587A',
+      border: 'rgba(2,132,199,0.18)',
+      ring: '#0284C7',
+    },
+    dark: {
+      background: '#03060D',
+      surface: 'rgba(11,20,36,0.65)',
+      foreground: '#E6F1FF',
+      primary: '#38BDF8',
+      primaryForeground: '#03060D',
+      accent: '#C084FC',
+      accentForeground: '#03060D',
+      muted: 'rgba(15,28,48,0.60)',
+      mutedForeground: '#8FA9C9',
+      border: 'rgba(56,189,248,0.18)',
+      ring: '#38BDF8',
+    },
+  },
+  {
+    id: 'lumen-horizon',
+    name: 'Lumen Horizon Sunset Glass',
+    category: 'modern',
+    archetype: 'liquid-aurora',
+    visualMood:
+      'Golden-hour haze, warm rose glass, sunset gradient refraction, calm energy',
+    headingFont: 'Newsreader, serif',
+    bodyFont: 'Manrope, sans-serif',
+    radius: '1.5rem',
+    borderStyle: '1px solid',
+    light: {
+      background: '#FFF7F2',
+      surface: 'rgba(255,255,255,0.78)',
+      foreground: '#2B1220',
+      primary: '#F97316',
+      primaryForeground: '#FFFFFF',
+      accent: '#DB2777',
+      accentForeground: '#FFFFFF',
+      muted: '#FFE8DC',
+      mutedForeground: '#8A4B2F',
+      border: 'rgba(249,115,22,0.20)',
+      ring: '#F97316',
+    },
+    dark: {
+      background: '#140A12',
+      surface: 'rgba(45,20,36,0.60)',
+      foreground: '#FFEFE6',
+      primary: '#FDBA74',
+      primaryForeground: '#140A12',
+      accent: '#F9A8D4',
+      accentForeground: '#140A12',
+      muted: 'rgba(58,25,45,0.55)',
+      mutedForeground: '#F3C9B4',
+      border: 'rgba(253,186,116,0.20)',
+      ring: '#FDBA74',
+    },
+  },
 ];
 
 export const DEFAULT_THEME_ID = 'neo-brutalism';
+
+export const DEFAULT_AURORA_THEME_ID = 'aurora-liquid-glass';
+
+export const THEME_COUNT = THEMES.length;
+
+export function getThemeById(id: string | undefined | null): ThemeConfig {
+  return THEMES.find((t) => t.id === id) || THEMES[0];
+}
+
+export function getThemesByArchetype(archetype: DesignArchetype): ThemeConfig[] {
+  return THEMES.filter((t) => t.archetype === archetype);
+}
+
+export function pickRandomTheme(excludeId?: string): ThemeConfig {
+  const pool = excludeId ? THEMES.filter((t) => t.id !== excludeId) : THEMES;
+  return pool[Math.floor(Math.random() * pool.length)] || THEMES[0];
+}
+
+export const CATEGORY_LABELS: Record<ThemeConfig['category'], string> = {
+  heritage: 'تراثي',
+  modern: 'عصري',
+  cyber: 'سيبراني',
+  artistic: 'فنّي',
+  minimal: 'بسيط',
+};

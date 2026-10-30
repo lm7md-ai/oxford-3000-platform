@@ -1,35 +1,49 @@
 'use client';
 
 import * as React from 'react';
-import { Header } from '@/components/shared/Header';
+import { Gamepad2, Zap, Trophy, Target, Flame } from 'lucide-react';
+import { PageShell } from '@/components/shared/PageShell';
+import { PageHeader } from '@/components/shared/PageHeader';
 import { GameHub } from '@/features/games/components/GameHub';
-import { Gamepad2, Sparkles } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { useStore, getLevelInfo } from '@/lib/store';
 
 export default function GamesPage() {
+  const totalXp = useStore((state) => state.totalXp);
+  const streak = useStore((state) => state.currentStreakDays);
+  const mastered = useStore((state) => state.masteredWordIds.length);
+  const level = getLevelInfo(totalXp);
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header currentPath="/games" />
+    <PageShell currentPath="/games">
+      <PageHeader
+        align="center"
+        badge="Gamified Active Recall"
+        badgeIcon={<Zap className="h-3 w-3" />}
+        eyebrow="Quiz & Challenge Hub"
+        title="الألعاب"
+        highlight="والمسابقات"
+        description="تحدَّ نفسك باختبارات سرعة، تدريبات أزواج صوتية، وتحديات سلاسل الكلمات — واكسب نقاط خبرة ترفع رتبتك في المعجم."
+        stats={[
+          { label: 'المستوى', value: `L${level.level} · ${level.icon}`, icon: <Trophy className="h-3 w-3" /> },
+          { label: 'مجموع XP', value: totalXp, icon: <Zap className="h-3 w-3" /> },
+          { label: 'سلسلة', value: `${streak} يوم`, icon: <Flame className="h-3 w-3" /> },
+          { label: 'متقنة', value: mastered, icon: <Target className="h-3 w-3" /> },
+        ]}
+      />
 
-      <main className="container mx-auto px-4 py-8 flex-1 space-y-8">
-        {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto space-y-2">
-          <Badge variant="accent" className="gap-1 text-xs">
-            <Sparkles className="h-3 w-3" />
-            <span>Gamified Active Recall</span>
-          </Badge>
-          <h1 className="text-3xl font-extrabold font-heading text-foreground">
-            Vocabulary Quizzes & Practice Hub
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Challenge yourself with speed quizzes, sound-alike phonetic drills, and earn XP to level
-            up your lexicon rank.
-          </p>
-        </div>
+      <GameHub />
 
-        {/* Game Hub */}
-        <GameHub />
-      </main>
-    </div>
+      <div className="mx-auto flex max-w-xl flex-wrap items-center justify-center gap-2 text-[10.5px] font-bold text-muted-foreground">
+        <span className="chip">
+          <Gamepad2 className="h-3 w-3" /> 5 أنماط لعب
+        </span>
+        <span className="chip">
+          <Zap className="h-3 w-3" /> نقاط خبرة فورية
+        </span>
+        <span className="chip">
+          <Trophy className="h-3 w-3" /> لوحة صدارة محلية
+        </span>
+      </div>
+    </PageShell>
   );
 }

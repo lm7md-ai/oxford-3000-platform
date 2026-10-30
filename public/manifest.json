@@ -1,15 +1,19 @@
 {
   "name": "Oxford 3000™ - Master English Lexicon",
   "short_name": "Oxford 3000",
-  "description": "Interactive, modular CEFR English learning platform with FSRS Spaced Repetition, WebRTC Duo Multiplayer, and IndexedDB Offline Architecture.",
+  "description": "Interactive CEFR English learning platform: complete Oxford 3000 lexicon, dual TTS engines, speech evaluation, AI storytelling, FSRS spaced repetition and six morphing design languages.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0B0F19",
-  "theme_color": "#060D21",
+  "background_color": "#05070F",
+  "theme_color": "#8B5CF6",
   "orientation": "portrait-primary",
-  "dir": "rtl",
+  "dir": "ltr",
   "lang": "ar",
-  "categories": ["education", "games", "productivity"],
+  "categories": [
+    "education",
+    "games",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "./icon-192.svg",
