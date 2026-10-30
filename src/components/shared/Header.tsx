@@ -256,9 +256,9 @@ export function Header({ currentPath }: { currentPath: string }) {
             >
               <motion.span
                 key={isDarkMode ? 'sun' : 'moon'}
-                initial={reduceMotion ? undefined : { rotate: -90, opacity: 0, scale: 0.6 }}
-                animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
+                initial={false}
+                animate={reduceMotion ? undefined : { rotate: [isDarkMode ? -60 : 60, 0], scale: [0.7, 1] }}
+                transition={{ duration: 0.32 }}
                 className="grid place-items-center"
               >
                 {isDarkMode ? (

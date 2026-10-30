@@ -4,7 +4,12 @@ import { ThemeProvider } from '@/components/shared/ThemeProvider';
 import { Footer } from '@/components/shared/Footer';
 import { THEMES } from '@/styles/themes';
 
-const BASE_PATH = process.env.NODE_ENV === 'production' ? '/oxford-3000-platform' : '';
+const BASE_PATH =
+  process.env.NEXT_PUBLIC_BASE_PATH !== undefined
+    ? process.env.NEXT_PUBLIC_BASE_PATH
+    : process.env.GITHUB_ACTIONS === 'true'
+    ? '/oxford-3000-platform'
+    : '';
 
 /** theme id → archetype id, generated from the single source of truth */
 const THEME_ARCHETYPE_MAP = JSON.stringify(
@@ -68,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="neo-brutalism" data-archetype="neo-brutalism" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -76,6 +81,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@300..800&family=Manrope:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Sora:wght@100..800&family=Space+Grotesk:wght@300..700&display=swap"
           rel="stylesheet"
         />
+        <noscript>
+          {/* If JavaScript is unavailable, never leave animated containers hidden */}
+          <style>{`[style*="opacity: 0"], [style*="opacity:0"] { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
       </head>
       <body className="min-h-screen bg-background font-body text-foreground antialiased selection:bg-primary/20 selection:text-primary">
         {/*

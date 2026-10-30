@@ -1,83 +1,65 @@
 'use client';
 
 import * as React from 'react';
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { EASE_OUT_EXPO, staggerContainer, staggerItem } from '@/lib/motion';
 
 type RevealTag = 'div' | 'section' | 'article' | 'header' | 'footer' | 'li' | 'span';
 
 interface RevealProps {
   children: React.ReactNode;
   className?: string;
+  /** Seconds to wait before the entrance animation starts */
   delay?: number;
+  /** Retained for API compatibility — CSS entrance rises from 14px */
   y?: number;
+  /** Retained for API compatibility */
   once?: boolean;
   as?: RevealTag;
   amount?: number;
 }
 
 /**
- * Scroll-triggered entrance wrapper. Automatically collapses to a no-op
- * animation when the visitor prefers reduced motion.
+ * Entrance wrapper built on the CSS animation library.
+ *
+ * Deliberately CSS-only (no JS-driven `opacity: 0`): the content is painted by
+ * the stylesheet, so a slow bundle, a blocked script or a failed chunk can
+ * never leave the page blank. Reduced-motion rules in globals.css neutralise it.
  */
 export function Reveal({
   children,
   className,
   delay = 0,
-  y = 16,
-  once = true,
   as = 'div',
-  amount = 0.2,
+  amount: _amount,
+  once: _once,
+  y: _y,
 }: RevealProps) {
-  const reduceSystem = useReducedMotion();
-  const MotionTag = motion[as] as typeof motion.div;
-
-  if (reduceSystem) {
-    return <div className={className}>{children}</div>;
-  }
-
+  const Tag = as as React.ElementType;
   return (
-    <MotionTag
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount }}
-      transition={{ duration: 0.55, ease: EASE_OUT_EXPO, delay }}
+    <Tag
+      className={cn('anim-rise', className)}
+      style={delay ? { animationDelay: `${Math.round(delay * 1000)}ms` } : undefined}
     >
       {children}
-    </MotionTag>
+    </Tag>
   );
 }
 
-/** Staggered list: children animate one after another as they scroll into view. */
+/** Staggered group: children animate one after another via `.stagger`. */
 export function RevealGroup({
   children,
   className,
-  stagger = 0.06,
-  gap,
-  amount = 0.12,
+  stagger: _stagger,
+  gap: _gap,
+  amount: _amount,
 }: {
   children: React.ReactNode;
   className?: string;
   stagger?: number;
-  gap?: Variants['visible'];
+  gap?: unknown;
   amount?: number;
 }) {
-  const reduceSystem = useReducedMotion();
-  if (reduceSystem) return <div className={className}>{children}</div>;
-
-  return (
-    <motion.div
-      className={className}
-      variants={staggerContainer(stagger)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={cn('stagger', className)}>{children}</div>;
 }
 
 /** Child of RevealGroup. */
@@ -88,16 +70,12 @@ export function RevealItem({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <motion.div variants={staggerItem} className={className}>
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 /**
  * Lightweight CSS-only staggered entrance for grids with many children
- * (cheaper than per-item motion components for 20+ virtualized cards).
+ * (cheaper than per-item animation components for 20+ virtualized cards).
  */
 export function StaggerList({
   children,

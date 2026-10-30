@@ -31,10 +31,14 @@ export function AnimatedNumber({
   const ref = React.useRef<HTMLSpanElement | null>(null);
   const inView = useInView(ref, { once: true, amount: 0.4 });
   const reduceMotion = useReducedMotion();
-  const [display, setDisplay] = React.useState(reduceMotion ? value : 0);
+  // Rendered optimistically so statically exported markup is never "0"
+  const [display, setDisplay] = React.useState(value);
+  const startedRef = React.useRef(false);
 
   React.useEffect(() => {
-    if (!inView) return;
+    if (!inView || startedRef.current) return;
+    startedRef.current = true;
+
     if (reduceMotion) {
       setDisplay(value);
       return;
@@ -53,6 +57,7 @@ export function AnimatedNumber({
       if (progress < 1) frame = requestAnimationFrame(tick);
     };
 
+    setDisplay(0);
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
   }, [inView, value, duration, reduceMotion]);

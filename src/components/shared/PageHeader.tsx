@@ -1,10 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
-import { EASE_OUT_EXPO, staggerContainer, staggerItem } from '@/lib/motion';
 
 export interface PageHeaderStat {
   label: string;
@@ -27,8 +25,11 @@ interface PageHeaderProps {
 }
 
 /**
- * Animated page hero used across every workspace: badge, gradient headline,
- * supporting copy, quick stats and an actions slot.
+ * Page hero used across every workspace.
+ *
+ * Animations are pure CSS (`.anim-blur` + `.stagger`) so the content is painted
+ * by the stylesheet — it can never end up stuck at `opacity: 0` if JavaScript
+ * is slow, blocked or a chunk fails to load.
  */
 export function PageHeader({
   badge,
@@ -43,16 +44,12 @@ export function PageHeader({
   className,
   children,
 }: PageHeaderProps) {
-  const reduceMotion = useReducedMotion();
   const centered = align === 'center';
 
   return (
-    <motion.section
-      variants={reduceMotion ? undefined : staggerContainer(0.08, 0.02)}
-      initial={reduceMotion ? undefined : 'hidden'}
-      animate={reduceMotion ? undefined : 'visible'}
+    <section
       className={cn(
-        'archetype-card group relative overflow-hidden px-5 py-7 sm:px-8 sm:py-9',
+        'archetype-card anim-blur group relative overflow-hidden px-5 py-7 sm:px-8 sm:py-9',
         centered && 'text-center',
         className
       )}
@@ -70,17 +67,14 @@ export function PageHeader({
 
       <div
         className={cn(
-          'relative z-10 space-y-4',
+          'stagger relative z-10 space-y-4',
           centered && 'mx-auto max-w-2xl',
           actions && 'sm:flex sm:items-end sm:justify-between sm:gap-6 sm:space-y-0'
         )}
       >
         <div className={cn('space-y-3', centered && 'flex flex-col items-center')}>
           {(badge || eyebrow) && (
-            <motion.div
-              variants={reduceMotion ? undefined : staggerItem}
-              className="flex flex-wrap items-center gap-2"
-            >
+            <div className="flex flex-wrap items-center gap-2">
               {badge && (
                 <Badge variant="accent" className="archetype-badge gap-1.5 px-2.5 py-1 text-[11px]">
                   {badgeIcon}
@@ -88,13 +82,10 @@ export function PageHeader({
                 </Badge>
               )}
               {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-            </motion.div>
+            </div>
           )}
 
-          <motion.h1
-            variants={reduceMotion ? undefined : staggerItem}
-            className="text-balance text-2xl font-black leading-[1.15] tracking-tight sm:text-4xl"
-          >
+          <h1 className="text-balance text-2xl font-black leading-[1.15] tracking-tight sm:text-4xl">
             {title}
             {highlight && (
               <>
@@ -102,37 +93,27 @@ export function PageHeader({
                 <span className="text-gradient">{highlight}</span>
               </>
             )}
-          </motion.h1>
+          </h1>
 
           {description && (
-            <motion.p
-              variants={reduceMotion ? undefined : staggerItem}
-              className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-[15px]"
-            >
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
               {description}
-            </motion.p>
+            </p>
           )}
         </div>
 
         {actions && (
-          <motion.div
-            variants={reduceMotion ? undefined : staggerItem}
-            className={cn('flex flex-wrap items-center gap-2 pt-2 sm:pt-0', centered && 'justify-center')}
-          >
+          <div className={cn('flex flex-wrap items-center gap-2 pt-2 sm:pt-0', centered && 'justify-center')}>
             {actions}
-          </motion.div>
+          </div>
         )}
       </div>
 
       {stats && stats.length > 0 && (
-        <motion.div
-          variants={reduceMotion ? undefined : staggerContainer(0.06, 0.12)}
-          className="relative z-10 mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4"
-        >
+        <div className="stagger relative z-10 mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           {stats.map((stat) => (
-            <motion.div
+            <div
               key={stat.label}
-              variants={reduceMotion ? undefined : staggerItem}
               className="stat-tile !rounded-[calc(var(--radius)*0.85)] !bg-surface/50 !py-2.5"
             >
               <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
@@ -140,12 +121,12 @@ export function PageHeader({
                 <span>{stat.label}</span>
               </div>
               <div className="mt-1 font-heading text-lg font-black leading-none">{stat.value}</div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       )}
 
       {children && <div className="relative z-10 mt-5">{children}</div>}
-    </motion.section>
+    </section>
   );
 }

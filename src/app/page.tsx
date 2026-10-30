@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
 import {
   Sparkles,
   Trophy,
@@ -23,7 +22,6 @@ import {
 } from 'lucide-react';
 import { PageShell } from '@/components/shared/PageShell';
 import { AnimatedNumber } from '@/components/shared/AnimatedNumber';
-import { Reveal, RevealGroup, RevealItem } from '@/components/shared/Reveal';
 import { LexiconCatalog } from '@/features/lexicon/components/LexiconCatalog';
 import { AudioPlayButton } from '@/features/audio-speech/components/AudioPlayButton';
 import { Badge } from '@/components/ui/badge';
@@ -34,7 +32,6 @@ import { getThemeById } from '@/styles/themes';
 import { getArchetypeMeta } from '@/styles/archetypes';
 import { OPEN_WORD_EVENT, PENDING_WORD_KEY } from '@/components/shared/CommandPalette';
 import { cn } from '@/lib/utils';
-import { EASE_OUT_EXPO } from '@/lib/motion';
 
 /* ------------------------------------------------------------------ */
 /* Word of the day (deterministic by calendar date)                    */
@@ -80,7 +77,6 @@ function HomeHero() {
   const toggleMastered = useStore((state) => state.toggleMastered);
   const masteredWordIds = useStore((state) => state.masteredWordIds);
   const recordWordView = useStore((state) => state.recordWordView);
-  const reduceMotion = useReducedMotion();
 
   const theme = getThemeById(themeId);
   const meta = getArchetypeMeta(theme.archetype);
@@ -187,9 +183,9 @@ function HomeHero() {
           </div>
 
           {/* Stats */}
-          <RevealGroup className="grid grid-cols-2 gap-2 pt-1 sm:grid-cols-4" stagger={0.07}>
+          <div className="stagger grid grid-cols-2 gap-2 pt-1 sm:grid-cols-4">
             {stats.map((stat) => (
-              <RevealItem key={stat.label}>
+              <div key={stat.label}>
                 <div className="stat-tile !bg-surface/60">
                   <div className="flex items-center gap-1.5 text-[9.5px] font-black uppercase tracking-[0.12em] text-muted-foreground">
                     {stat.icon}
@@ -205,18 +201,16 @@ function HomeHero() {
                     </span>
                   </div>
                 </div>
-              </RevealItem>
+              </div>
             ))}
-          </RevealGroup>
+          </div>
         </div>
 
         {/* Right: word of the day + streak */}
         <div className="space-y-3">
-          <motion.div
-            initial={reduceMotion ? undefined : { opacity: 0, y: 18, rotate: -1 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0, rotate: 0 }}
-            transition={{ duration: 0.6, ease: EASE_OUT_EXPO, delay: 0.15 }}
-            className="archetype-card relative overflow-hidden p-4 sm:p-5"
+          <div
+            className="archetype-card anim-rise relative overflow-hidden p-4 sm:p-5"
+            style={{ animationDelay: '150ms' }}
           >
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
             <div className="flex items-center justify-between">
@@ -275,7 +269,7 @@ function HomeHero() {
                 <CheckCircle className={cn('h-3.5 w-3.5', isMastered && 'fill-emerald-500/20')} />
               </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Streak / level strip */}
           <div className="grid grid-cols-3 gap-2">
@@ -320,11 +314,11 @@ function QuickAccess() {
         </span>
       </div>
 
-      <RevealGroup className="grid grid-cols-2 gap-2.5 md:grid-cols-3 xl:grid-cols-6" stagger={0.05}>
+      <div className="stagger grid grid-cols-2 gap-2.5 md:grid-cols-3 xl:grid-cols-6">
         {items.map((item) => {
           const Icon = item.icon;
           return (
-            <RevealItem key={item.href} className="h-full">
+            <div key={item.href} className="h-full">
               <Link
                 href={item.href}
                 className="archetype-card group flex h-full flex-col gap-2 p-3.5 transition-transform hover:-translate-y-1"
@@ -353,10 +347,10 @@ function QuickAccess() {
                   <ArrowLeft className="h-3 w-3" />
                 </span>
               </Link>
-            </RevealItem>
+            </div>
           );
         })}
-      </RevealGroup>
+      </div>
     </section>
   );
 }
@@ -466,9 +460,7 @@ export default function HomePage() {
             {CEFR_COUNTS.A2} · B1 {CEFR_COUNTS.B1} · B2 {CEFR_COUNTS.B2}
           </span>
         </div>
-        <Reveal amount={0.01} y={10}>
-          <LexiconCatalog />
-        </Reveal>
+        <LexiconCatalog />
       </section>
     </PageShell>
   );

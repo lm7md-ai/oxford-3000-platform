@@ -4,12 +4,13 @@
   "version": "3.0.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/serve-static.mjs",
     "lint": "next lint",
     "test": "node test/e2e-runner.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "preview": "node scripts/serve-static.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
