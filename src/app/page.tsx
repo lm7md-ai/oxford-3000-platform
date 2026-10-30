@@ -28,7 +28,7 @@ import { Badge } from '@/components/ui/badge';
 import { useStore, getLevelInfo } from '@/lib/store';
 import { OXFORD_DATASET, CEFR_COUNTS } from '@/data/oxfordDataset';
 import { NAV_ITEMS } from '@/lib/navigation';
-import { getThemeById } from '@/styles/themes';
+import { getThemeById, THEMES } from '@/styles/themes';
 import { getArchetypeMeta } from '@/styles/archetypes';
 import { OPEN_WORD_EVENT, PENDING_WORD_KEY } from '@/components/shared/CommandPalette';
 import { cn } from '@/lib/utils';
@@ -172,7 +172,7 @@ function HomeHero() {
             >
               معرض التصاميم
               <span className="ltr-isolate text-[10px] font-bold text-muted-foreground" dir="ltr">
-                28
+                {THEMES.length}
               </span>
             </Link>
 
