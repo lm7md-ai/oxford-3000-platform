@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { BookOpen, Sparkles, Heart, Palette, Keyboard, ArrowUpRight, Layers } from 'lucide-react';
+import { BookOpen, Sparkles, Heart, Palette, Keyboard, Layers } from 'lucide-react';
 import { NAV_ITEMS } from '@/lib/navigation';
 import { ARCHETYPES, DESIGN_GENERATIONS } from '@/styles/archetypes';
 import { THEMES } from '@/styles/themes';
@@ -21,34 +21,25 @@ export function Footer() {
   const openStudio = () => window.dispatchEvent(new CustomEvent(OPEN_THEME_STUDIO_EVENT));
 
   return (
-    <footer className="relative mt-16 overflow-hidden border-t border-border/70 bg-surface/50 no-print">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-24 left-1/2 h-48 w-[70%] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
-      />
-
-      <div className="container relative py-8">
-        <div className="grid gap-6 md:grid-cols-[1.3fr_1fr_1fr_1.1fr]">
+    <footer className="relative mt-20 border-t border-border bg-transparent no-print">
+      <div className="container py-10">
+        <div className="grid gap-8 md:grid-cols-[1.4fr_0.8fr_0.8fr_1.1fr] md:gap-10">
           {/* Brand */}
           <div className="space-y-2.5">
-            <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-                <BookOpen className="h-4 w-4" />
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-8 w-8 place-items-center rounded-sm border border-primary/60 text-primary">
+                <BookOpen className="h-[15px] w-[15px]" strokeWidth={1.75} />
               </span>
               <div>
-                <p className="font-heading text-sm font-black leading-none">
+                <p className="ltr-isolate font-heading text-[13.5px] font-semibold leading-none" dir="ltr">
                   Oxford 3000™ Platform
                 </p>
-                <p className="mt-1 text-[10px] text-muted-foreground">
-                  CEFR A1 → B2 · {THEMES.length} نماذج · 6 لغات تصميم
+                <p className="mt-1.5 text-[9.5px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                  CEFR A1 → B2 · {THEMES.length} نموذجًا · 6 مدارس تصميم
                 </p>
               </div>
             </div>
-            <p className="max-w-xs text-[11px] leading-relaxed text-muted-foreground">
+            <p className="max-w-xs text-[11.5px] leading-[1.9] text-muted-foreground">
               منصة تعلّم متكاملة تجمع المعجم الكامل، النطق، تقييم الكلام، الذكاء الاصطناعي، والمراجعة
               المتباعدة — بواجهة قابلة للتحوّل بالكامل.
             </p>
@@ -56,7 +47,7 @@ export function Footer() {
               {DESIGN_GENERATIONS.map((generation) => (
                 <span
                   key={generation.generation}
-                  className="rounded-full bg-muted/60 px-1.5 py-0.5 font-mono text-[9px] font-black text-muted-foreground"
+                  className="ltr-isolate rounded-sm border border-border px-1.5 py-0.5 text-[9px] font-semibold text-muted-foreground"
                   title={generation.labelAr}
                 >
                   G{generation.generation}
@@ -72,9 +63,8 @@ export function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-center gap-1 text-[11.5px] font-bold text-muted-foreground transition-colors hover:text-foreground"
+                className="group flex items-center gap-1 text-[11.5px] font-medium text-muted-foreground transition-colors hover:text-primary"
               >
-                <ArrowUpRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
                 {item.label}
               </Link>
             ))}
@@ -87,32 +77,31 @@ export function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-center gap-1 text-[11.5px] font-bold text-muted-foreground transition-colors hover:text-foreground"
+                className="group flex items-center gap-1 text-[11.5px] font-medium text-muted-foreground transition-colors hover:text-primary"
               >
-                <ArrowUpRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
                 {item.label}
               </Link>
             ))}
             <button
               type="button"
               onClick={openStudio}
-              className="mt-1 flex items-center gap-1.5 rounded-lg border border-border/70 px-2 py-1 text-[10.5px] font-black text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              className="mt-2 inline-flex items-center gap-1.5 border-b border-border pb-0.5 text-[11px] font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary"
             >
-              <Palette className="h-3 w-3" />
-              استوديو التحول المعماري
+              <Palette className="h-3 w-3" aria-hidden="true" />
+              استوديو التصميم
             </button>
           </div>
 
           {/* Status */}
           <div className="space-y-2">
             <p className="eyebrow">الحالة</p>
-            <div className="rounded-xl border border-border/70 bg-surface/60 p-2.5">
-              <p className="flex items-center justify-between text-[10.5px] font-bold">
+            <div className="border-y border-border py-2.5">
+              <p className="flex items-center justify-between gap-2 text-[10.5px] font-medium">
                 <span className="flex items-center gap-1">
                   <Layers className="h-3 w-3 text-primary" />
                   التصميم النشط
                 </span>
-                <span className="text-primary">{theme.name}</span>
+                <span className="text-foreground">{theme.name}</span>
               </p>
               <p className="mt-1 flex items-center justify-between text-[10.5px] font-bold">
                 <span className="flex items-center gap-1">
@@ -123,15 +112,15 @@ export function Footer() {
                   <RankIcon level={level.level} className="h-3.5 w-3.5" /> {level.nameAr}
                 </span>
               </p>
-              <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-muted/70">
+              <div className="mt-2 h-[2px] overflow-hidden bg-border">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
+                  className="h-full bg-primary"
                   style={{ width: `${level.progressPercent}%` }}
                 />
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-1 text-[10px] font-bold text-muted-foreground">
-              <Keyboard className="h-3 w-3" />
+            <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-medium text-muted-foreground">
+              <Keyboard className="h-3 w-3" aria-hidden="true" />
               <span className="kbd">⌘K</span> أوامر
               <span className="kbd">T</span> تصميم
               <span className="kbd">/</span> بحث
@@ -149,16 +138,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-center justify-between gap-2 border-t border-border/60 pt-4 text-[10.5px] text-muted-foreground sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-border pt-4 text-[10px] text-muted-foreground sm:flex-row">
           <p className="flex flex-wrap items-center gap-1.5">
             <span className="font-semibold text-foreground">Oxford 3000™ Enterprise Lexicon</span>
-            <span className="opacity-50">•</span>
-            <span>CEFR A1 to B2 Complete Framework</span>
-            <span className="opacity-50">•</span>
-            <span className="font-mono">{totalXp} XP</span>
+            <span aria-hidden="true" className="opacity-40">·</span>
+            <span>CEFR A1 — B2</span>
+            <span aria-hidden="true" className="opacity-40">·</span>
+            <span className="tabular-nums">{totalXp} XP</span>
           </p>
-          <p className="flex items-center gap-1">
-            Designed with <Heart className="h-3 w-3 fill-red-500 text-red-500" /> for English mastery
+          <p className="flex items-center gap-1.5">
+            صُنع بعناية لتعليم المفردات
+            <Heart className="h-3 w-3 text-primary/70" aria-hidden="true" />
           </p>
         </div>
       </div>
