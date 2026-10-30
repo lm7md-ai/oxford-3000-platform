@@ -47,8 +47,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'neo-brutalism',
     visualMood: 'High-contrast graphic punch, 90s comic pop-art enthusiasm, hard offset shadows',
-    headingFont: '"Clash Display", "Space Grotesk", sans-serif',
-    bodyFont: '"Plus Jakarta Sans", sans-serif',
+    headingFont: '"Clash Display", "Space Grotesk", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Plus Jakarta Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.5rem',
     borderStyle: '2.5px solid',
     light: {
@@ -84,8 +84,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'minimal',
     archetype: 'swiss',
     visualMood: 'Josef Müller-Brockmann precision, zero border-radius, hairline borders, objective modernism',
-    headingFont: '"Neue Haas Grotesk", Inter, sans-serif',
-    bodyFont: '"Roboto Mono", monospace',
+    headingFont: '"Neue Haas Grotesk", Inter, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Roboto Mono", monospace, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0px',
     borderStyle: '0.5px solid',
     light: {
@@ -121,8 +121,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'organic-terracotta',
     visualMood: 'Sun-baked pottery, humanist artisan warmth, generous contours, diffuse shadows',
-    headingFont: 'Fraunces, serif',
-    bodyFont: '"DM Sans", sans-serif',
+    headingFont: 'Fraunces, serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"DM Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.5rem',
     borderStyle: '1px solid',
     light: {
@@ -158,8 +158,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'oxford-heritage',
     visualMood: 'Scholarly authority, archival prestige, timeless bibliotheca',
-    headingFont: 'Newsreader, serif',
-    bodyFont: 'Inter, sans-serif',
+    headingFont: 'Newsreader, serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Inter, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.375rem',
     borderStyle: '1px solid',
     light: {
@@ -195,8 +195,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'cyber',
     archetype: 'cyber-terminal',
     visualMood: 'Neural interface, high-velocity developer terminal, obsidian cyan glow',
-    headingFont: '"Space Grotesk", sans-serif',
-    bodyFont: '"JetBrains Mono", monospace',
+    headingFont: '"Space Grotesk", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"JetBrains Mono", monospace, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.125rem',
     borderStyle: '1px solid',
     light: {
@@ -232,8 +232,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'minimal',
     archetype: 'swiss',
     visualMood: 'Wabi-sabi calm, raw linen tactile serenity, distraction-free focus',
-    headingFont: '"Shippori Mincho", "Noto Serif", serif',
-    bodyFont: '"Plus Jakarta Sans", sans-serif',
+    headingFont: '"Shippori Mincho", "Noto Serif", serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Plus Jakarta Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.75rem',
     borderStyle: '0.5px solid',
     light: {
@@ -269,8 +269,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'organic-terracotta',
     visualMood: 'Sub-zero crystalline clarity, polar auroral luminescence, frosted glass',
-    headingFont: '"Cabinet Grotesk", sans-serif',
-    bodyFont: 'Switzer, sans-serif',
+    headingFont: '"Cabinet Grotesk", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Switzer, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.25rem',
     borderStyle: '1px solid',
     light: {
@@ -306,8 +306,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'neo-brutalism',
     visualMood: 'De Stijl primary colors, geometric balance, constructivist dynamism',
-    headingFont: 'Syne, sans-serif',
-    bodyFont: '"Instrument Sans", sans-serif',
+    headingFont: 'Syne, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Instrument Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.25rem',
     borderStyle: '2px solid',
     light: {
@@ -343,8 +343,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'cyber',
     archetype: 'cyber-terminal',
     visualMood: 'Shibuya neon alleys, synthwave pulse, retro-futuristic arcade gamification',
-    headingFont: 'Sora, sans-serif',
-    bodyFont: '"Fira Code", monospace',
+    headingFont: 'Sora, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Fira Code", monospace, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.625rem',
     borderStyle: '1px solid',
     light: {
@@ -380,8 +380,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'modern',
     archetype: 'swiss',
     visualMood: 'Precision engineering, executive dark mode, ultra-high information density',
-    headingFont: '"Geist Sans", sans-serif',
-    bodyFont: '"Geist Mono", monospace',
+    headingFont: '"Geist Sans", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Geist Mono", monospace, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.5rem',
     borderStyle: '1px solid',
     light: {
@@ -417,8 +417,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'organic-terracotta',
     visualMood: 'Victorian botanical garden, pressed wildflower manuscripts, organic wellness',
-    headingFont: '"Playfair Display", serif',
-    bodyFont: 'Outfit, sans-serif',
+    headingFont: '"Playfair Display", serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Outfit, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.875rem',
     borderStyle: '1px solid',
     light: {
@@ -454,8 +454,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'modern',
     archetype: 'swiss',
     visualMood: 'Raycast / Linear polished simplicity, effortless keyboard-first navigation',
-    headingFont: 'Geist, sans-serif',
-    bodyFont: 'Inter, sans-serif',
+    headingFont: 'Geist, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Inter, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.375rem',
     borderStyle: '0.5px solid',
     light: {
@@ -491,8 +491,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'modern',
     archetype: 'neo-brutalism',
     visualMood: 'Tactile hardware knobs, warm analog industrial meters, functional honesty',
-    headingFont: '"DM Sans", sans-serif',
-    bodyFont: '"Work Sans", sans-serif',
+    headingFont: '"DM Sans", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Work Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.625rem',
     borderStyle: '1px solid',
     light: {
@@ -528,8 +528,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'organic-terracotta',
     visualMood: 'Interstellar discovery, celestial purple luminescence, gravitational orbits',
-    headingFont: '"Cabinet Grotesk", sans-serif',
-    bodyFont: 'Satoshi, sans-serif',
+    headingFont: '"Cabinet Grotesk", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Satoshi, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.125rem',
     borderStyle: '1px solid',
     light: {
@@ -565,8 +565,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'swiss',
     visualMood: 'High-fashion luxury publication, asymmetric editorial layouts, stark contrast',
-    headingFont: '"Cormorant Garamond", serif',
-    bodyFont: 'Manrope, sans-serif',
+    headingFont: '"Cormorant Garamond", serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Manrope, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0px',
     borderStyle: '1px solid',
     light: {
@@ -602,8 +602,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'modern',
     archetype: 'neo-brutalism',
     visualMood: 'Ethan Schoonover color theory, zero eye strain for 12-hour immersive study',
-    headingFont: '"IBM Plex Sans", sans-serif',
-    bodyFont: '"IBM Plex Mono", monospace',
+    headingFont: '"IBM Plex Sans", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"IBM Plex Mono", monospace, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.5rem',
     borderStyle: '1.5px solid',
     light: {
@@ -639,8 +639,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'organic-terracotta',
     visualMood: 'Playful pillowy soft clay, friendly gamified language learning',
-    headingFont: '"Plus Jakarta Sans", sans-serif',
-    bodyFont: 'Nunito, sans-serif',
+    headingFont: '"Plus Jakarta Sans", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Nunito, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.75rem',
     borderStyle: '2px solid',
     light: {
@@ -676,8 +676,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'oxford-heritage',
     visualMood: 'The Great Gatsby roaring twenties, brass filigree, noir luxury',
-    headingFont: 'Marcellus, serif',
-    bodyFont: 'Montserrat, sans-serif',
+    headingFont: 'Marcellus, serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Montserrat, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.25rem',
     borderStyle: '1px solid',
     light: {
@@ -713,8 +713,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'minimal',
     archetype: 'organic-terracotta',
     visualMood: 'Stress-free cognitive load reduction, soothing lavender aromatherapy aesthetic',
-    headingFont: 'Outfit, sans-serif',
-    bodyFont: 'Figtree, sans-serif',
+    headingFont: 'Outfit, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Figtree, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.375rem',
     borderStyle: '1px solid',
     light: {
@@ -750,8 +750,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'cyber',
     archetype: 'swiss',
     visualMood: 'CAD drafting table, technical architectural diagrams, metric precision',
-    headingFont: '"Space Mono", monospace',
-    bodyFont: '"Overpass Mono", monospace',
+    headingFont: '"Space Mono", monospace, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Overpass Mono", monospace, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.1875rem',
     borderStyle: '1px dashed',
     light: {
@@ -787,8 +787,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'organic-terracotta',
     visualMood: 'Sun-drenched Aegean sea, crisp sea-salt linen, Santorini serenity',
-    headingFont: '"Playfair Display", serif',
-    bodyFont: 'Karla, sans-serif',
+    headingFont: '"Playfair Display", serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Karla, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.75rem',
     borderStyle: '1px solid',
     light: {
@@ -824,8 +824,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'neo-brutalism',
     visualMood: 'Hand-printed zine, fluorescent ink registration, authentic halftone texture',
-    headingFont: '"Bricolage Grotesque", sans-serif',
-    bodyFont: '"Public Sans", sans-serif',
+    headingFont: '"Bricolage Grotesque", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Public Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.375rem',
     borderStyle: '2px solid',
     light: {
@@ -861,8 +861,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'cyber',
     archetype: 'cyber-terminal',
     visualMood: 'Optical dispersion, opalescent glass, futuristic holographic refraction',
-    headingFont: '"General Sans", sans-serif',
-    bodyFont: 'Epilogue, sans-serif',
+    headingFont: '"General Sans", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Epilogue, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1rem',
     borderStyle: '1px solid',
     light: {
@@ -898,8 +898,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'heritage',
     archetype: 'oxford-heritage',
     visualMood: 'Sartorial craftsmanship, chalk stripe wool, polished horn button brass',
-    headingFont: '"Bodoni Moda", serif',
-    bodyFont: 'Supreme, sans-serif',
+    headingFont: '"Bodoni Moda", serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Supreme, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '0.25rem',
     borderStyle: '1px dotted',
     light: {
@@ -935,8 +935,8 @@ export const THEMES: ThemeConfig[] = [
     category: 'artistic',
     archetype: 'organic-terracotta',
     visualMood: 'Clean ecological futurism, photosynthesis solar energy, botanical harmony',
-    headingFont: '"Cabinet Grotesk", sans-serif',
-    bodyFont: '"Albert Sans", sans-serif',
+    headingFont: '"Cabinet Grotesk", sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: '"Albert Sans", sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.25rem',
     borderStyle: '1px solid',
     light: {
@@ -977,8 +977,8 @@ export const THEMES: ThemeConfig[] = [
     archetype: 'liquid-aurora',
     visualMood:
       'Living glass strata, slow auroral light, chromatic refraction, luminous depth',
-    headingFont: 'Sora, sans-serif',
-    bodyFont: 'Manrope, sans-serif',
+    headingFont: 'Sora, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Manrope, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.25rem',
     borderStyle: '1px solid',
     light: {
@@ -1015,8 +1015,8 @@ export const THEMES: ThemeConfig[] = [
     archetype: 'liquid-aurora',
     visualMood:
       'Polished chrome, iridescent prism edges, studio daylight, precision glass',
-    headingFont: 'Sora, sans-serif',
-    bodyFont: 'Manrope, sans-serif',
+    headingFont: 'Sora, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Manrope, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1rem',
     borderStyle: '1px solid',
     light: {
@@ -1053,8 +1053,8 @@ export const THEMES: ThemeConfig[] = [
     archetype: 'liquid-aurora',
     visualMood:
       'Midnight ocean glass, bioluminescent cyan, violet aurora ribbons over slate',
-    headingFont: 'Sora, sans-serif',
-    bodyFont: 'Manrope, sans-serif',
+    headingFont: 'Sora, sans-serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Manrope, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.375rem',
     borderStyle: '1px solid',
     light: {
@@ -1091,8 +1091,8 @@ export const THEMES: ThemeConfig[] = [
     archetype: 'liquid-aurora',
     visualMood:
       'Golden-hour haze, warm rose glass, sunset gradient refraction, calm energy',
-    headingFont: 'Newsreader, serif',
-    bodyFont: 'Manrope, sans-serif',
+    headingFont: 'Newsreader, serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Manrope, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
     radius: '1.5rem',
     borderStyle: '1px solid',
     light: {
@@ -1122,9 +1122,50 @@ export const THEMES: ThemeConfig[] = [
       ring: '#FDBA74',
     },
   },
+  /* =======================================================================
+   * EDITORIAL HOUSE STYLE — ink on paper (professional default)
+   * ===================================================================== */
+  {
+    id: 'oxford-ink',
+    name: 'Oxford Ink & Paper',
+    category: 'heritage',
+    archetype: 'oxford-heritage',
+    visualMood:
+      'Editorial house style: warm paper, deep ink, one vermilion accent, hairline rules',
+    headingFont: 'Fraunces, "IBM Plex Sans Arabic", "Noto Naskh Arabic", serif, "IBM Plex Sans Arabic", sans-serif',
+    bodyFont: 'Inter, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif',
+    radius: '0.5rem',
+    borderStyle: '1px solid',
+    light: {
+      background: '#FBFAF7',
+      surface: '#FFFFFF',
+      foreground: '#14161B',
+      primary: '#8C2F39',
+      primaryForeground: '#FFFFFF',
+      accent: '#1F3A5F',
+      accentForeground: '#FFFFFF',
+      muted: '#F1EEE8',
+      mutedForeground: '#5B5750',
+      border: '#E3DED4',
+      ring: '#8C2F39',
+    },
+    dark: {
+      background: '#0E1013',
+      surface: '#16191E',
+      foreground: '#F2EFE9',
+      primary: '#C86B5A',
+      primaryForeground: '#0E1013',
+      accent: '#8EA8C9',
+      accentForeground: '#0E1013',
+      muted: '#1C2026',
+      mutedForeground: '#A6A199',
+      border: '#282E36',
+      ring: '#C86B5A',
+    },
+  },
 ];
 
-export const DEFAULT_THEME_ID = 'neo-brutalism';
+export const DEFAULT_THEME_ID = 'oxford-ink';
 
 export const DEFAULT_AURORA_THEME_ID = 'aurora-liquid-glass';
 

@@ -23,6 +23,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { PENDING_WORD_KEY } from '@/components/shared/CommandPalette';
+import { RankIcon } from '@/components/shared/RankIcon';
 
 export function AnalyticsDashboard() {
   const router = useRouter();
@@ -227,7 +228,7 @@ export function AnalyticsDashboard() {
                 <span className="text-sm font-bold text-muted-foreground"> / {dailyGoalXp} XP</span>
               </span>
               <span className="text-[11px] font-bold text-muted-foreground">
-                {goalPercent >= 100 ? '🎉 تم تحقيق الهدف' : `متبقٍ ${Math.max(0, dailyGoalXp - xpToday)} XP`}
+                {goalPercent >= 100 ? 'تم تحقيق الهدف اليومي' : `متبقٍ ${Math.max(0, dailyGoalXp - xpToday)} XP`}
               </span>
             </div>
             <div className="progress-track !h-3">
@@ -268,7 +269,7 @@ export function AnalyticsDashboard() {
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             {level.nextLevel
               ? `متبقٍ ${level.remainingXp} XP للوصول إلى «${level.nextLevel.nameAr}»`
-              : 'وصلت إلى أعلى رتبة في المنصة 👑'}
+              : 'وصلت إلى أعلى رتبة في المنصة'}
           </p>
         </Card>
 
@@ -294,7 +295,7 @@ export function AnalyticsDashboard() {
                       : 'border-border/60 bg-muted/20'
                   )}
                 >
-                  <span className="text-sm">{tier.icon}</span>
+                  <RankIcon level={tier.level} className="h-4 w-4 text-muted-foreground" />
                   <span className="flex-1 text-[11.5px] font-bold">
                     {tier.nameAr}
                     <span className="ml-1 text-[9.5px] font-medium text-muted-foreground">

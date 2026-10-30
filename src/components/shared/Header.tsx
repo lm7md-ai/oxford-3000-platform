@@ -17,10 +17,9 @@ import {
   Flame,
   Cpu,
   Palette,
-  TrendingUp,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { useStore, getLevelInfo } from '@/lib/store';
-import { Badge } from '@/components/ui/badge';
 import { ThemeStudioModal } from './ThemeStudioModal';
 import { GrokKeySettingsModal } from '@/features/ai-engine/components/GrokKeySettingsModal';
 import { ThemeQuickSwitcher } from './ThemeQuickSwitcher';
@@ -31,7 +30,6 @@ import { CommandPalette, OPEN_THEME_STUDIO_EVENT } from './CommandPalette';
 import { getThemeById } from '@/styles/themes';
 import { isPathActive } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
-import { springSnappy } from '@/lib/motion';
 
 const PRIMARY_LINKS = [
   { href: '/', label: 'المفردات', icon: BookOpen },
@@ -47,6 +45,8 @@ export function Header({ currentPath }: { currentPath: string }) {
   const [isPaletteOpen, setIsPaletteOpen] = React.useState(false);
   const [isMobileOpen, setIsMobileOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [isToolsOpen, setIsToolsOpen] = React.useState(false);
+  const toolsRef = React.useRef<HTMLDivElement | null>(null);
 
   const themeId = useStore((state) => state.themeId);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -72,6 +72,23 @@ export function Header({ currentPath }: { currentPath: string }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  /* Tools popover: close on outside click / Escape */
+  React.useEffect(() => {
+    if (!isToolsOpen) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (!toolsRef.current?.contains(event.target as Node)) setIsToolsOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsToolsOpen(false);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [isToolsOpen]);
 
   /* Global shortcuts: ⌘K / Ctrl+K palette, "T" opens the design studio */
   React.useEffect(() => {
@@ -115,31 +132,31 @@ export function Header({ currentPath }: { currentPath: string }) {
       <ScrollProgress />
 
       <header className="nav-shell no-print" data-scrolled={scrolled}>
-        <div className="container flex h-16 items-center gap-2 sm:gap-3">
+        <div className="container flex h-[3.75rem] items-center gap-3">
           {/* ---------------- Brand ---------------- */}
           <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Oxford 3000 الرئيسية">
-            <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25 transition-transform duration-300 group-hover:scale-105">
-              <span className="absolute inset-0 bg-gradient-to-br from-white/35 via-transparent to-black/20" />
-              <BookOpen className="relative h-[18px] w-[18px]" />
+            <span className="grid h-8 w-8 place-items-center rounded-sm border border-primary/60 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+              <BookOpen className="h-[15px] w-[15px]" strokeWidth={1.75} aria-hidden="true" />
             </span>
             <span className="leading-none">
-              <span className="flex items-center gap-1.5 font-heading text-[15px] font-black tracking-tight">
-                Oxford 3000™
-                <Badge variant="accent" className="archetype-badge px-1.5 py-0 text-[9px] leading-4">
-                  PRO
-                </Badge>
+              <span className="ltr-isolate flex items-baseline gap-1.5 font-heading text-[15px] font-semibold tracking-[-0.01em]" dir="ltr">
+                Oxford 3000
+                <span className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                  ™
+                </span>
               </span>
-              <span className="mt-1 hidden text-[10px] font-medium text-muted-foreground sm:block">
-                {activeTheme.name} · CEFR A1–B2
+              <span className="mt-1.5 hidden text-[9.5px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:block">
+                المعجم الكامل · A1–B2
               </span>
             </span>
           </Link>
 
+          <span aria-hidden="true" className="mx-1 hidden h-5 w-px bg-border lg:block" />
+
           {/* ---------------- Desktop navigation ---------------- */}
-          <nav className="ml-2 hidden items-center gap-0.5 lg:flex" aria-label="التنقل الرئيسي">
+          <nav className="hidden items-center gap-0.5 lg:flex" aria-label="التنقل الرئيسي">
             <NavMegaMenu currentPath={currentPath} />
             {PRIMARY_LINKS.map((item) => {
-              const Icon = item.icon;
               const active = isPathActive(currentPath, item.href);
               return (
                 <Link
@@ -149,102 +166,134 @@ export function Header({ currentPath }: { currentPath: string }) {
                   aria-current={active ? 'page' : undefined}
                   className="nav-link"
                 >
-                  {active && !reduceMotion && (
-                    <motion.span
-                      layoutId="nav-active-pill"
-                      className="nav-active-pill"
-                      transition={springSnappy}
-                    />
-                  )}
-                  {active && reduceMotion && <span className="nav-active-pill" />}
-                  <Icon className="relative h-3.5 w-3.5" />
-                  <span className="relative">{item.label}</span>
+                  <span>{item.label}</span>
                 </Link>
               );
             })}
           </nav>
 
           {/* ---------------- Actions ---------------- */}
-          <div className="ml-auto flex items-center gap-1.5">
+          <div className="ml-auto flex items-center gap-1">
             <button
               type="button"
               onClick={() => setIsPaletteOpen(true)}
               aria-label="بحث سريع (Ctrl + K)"
-              className="archetype-btn group hidden h-8 items-center gap-2 rounded-lg border border-border bg-surface/70 px-2.5 text-[11px] font-bold text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground md:flex"
+              className="archetype-btn hidden h-8 items-center gap-2 rounded-md border border-border bg-transparent px-2.5 text-[11px] font-medium text-muted-foreground transition-colors hover:border-foreground/25 hover:text-foreground md:flex"
             >
-              <Search className="h-3.5 w-3.5" />
-              <span className="hidden xl:inline">بحث سريع…</span>
+              <Search className="h-3.5 w-3.5" aria-hidden="true" />
+              <span className="hidden xl:inline">بحث…</span>
               <span className="kbd ml-1 hidden xl:inline-flex">⌘K</span>
             </button>
 
-            {/* Audio speed */}
-            <div className="relative hidden xl:block">
-              <Volume2 className="pointer-events-none absolute left-1.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-primary" />
-              <select
-                value={audioRate}
-                onChange={(event) => setAudioRate(parseFloat(event.target.value))}
-                aria-label="سرعة النطق"
-                className="h-8 cursor-pointer appearance-none rounded-lg border border-border bg-surface/70 pl-6 pr-5 text-[11px] font-mono font-bold text-foreground transition-colors hover:border-primary/50 focus:border-primary"
-                title="سرعة نطق الصوت الطبيعي"
-              >
-                <option value="0.6">0.6x</option>
-                <option value="0.8">0.8x</option>
-                <option value="0.9">0.9x</option>
-                <option value="1.0">1.0x</option>
-                <option value="1.2">1.2x</option>
-              </select>
-            </div>
-
-            {/* Streak */}
-            <div
-              className="hidden h-8 items-center gap-1 rounded-lg border border-orange-500/30 bg-orange-500/10 px-2 text-[11px] font-black text-orange-600 dark:text-orange-400 2xl:flex"
+            {/* Streak — quiet, no badge box */}
+            <span
+              className="hidden items-center gap-1 px-1.5 text-[11px] font-medium tabular-nums text-muted-foreground 2xl:flex"
               title={`سلسلة الدراسة: ${streak} يوم متواصل`}
             >
-              <Flame className="h-3.5 w-3.5" />
+              <Flame className="h-3.5 w-3.5 text-primary/70" aria-hidden="true" />
               {streak}
-            </div>
+            </span>
 
-            {/* XP level ring */}
+            {/* Level + XP */}
             <Link
               href="/analytics"
               title={`${level.nameAr} · ${totalXp} XP · ${level.remainingXp} XP للمستوى التالي`}
-              className="archetype-btn group hidden h-8 items-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-1.5 text-[11px] font-black text-amber-600 transition-transform hover:-translate-y-0.5 dark:text-amber-400 sm:flex"
+              className="hidden h-8 items-center gap-1.5 rounded-md border border-border px-2 text-[11px] font-semibold tabular-nums text-foreground transition-colors hover:border-primary/45 sm:flex"
             >
               <span
-                className="ring-progress !h-6 !w-6"
+                className="ring-progress !h-4 !w-4"
                 style={{ ['--pct' as string]: level.progressPercent }}
                 aria-hidden="true"
-              >
-                <span className="!text-[9px]">{level.level}</span>
+              />
+              <span className="text-muted-foreground">L{level.level}</span>
+              <span className="h-3 w-px bg-border" aria-hidden="true" />
+              <span>{totalXp}</span>
+              <span className="text-[9px] font-medium uppercase tracking-wider text-muted-foreground">
+                XP
               </span>
-              <span className="tabular-nums">{totalXp}</span>
-              <span className="hidden text-[9px] font-bold opacity-70 xl:inline">XP</span>
             </Link>
 
             <ThemeQuickSwitcher />
 
-            {/* Grok key */}
-            <button
-              type="button"
-              onClick={() => setIsGrokModalOpen(true)}
-              title="إعدادات مفتاح Grok (xAI API)"
-              aria-label="إعدادات مفتاح الذكاء الاصطناعي"
-              className="archetype-btn hidden h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface/70 text-foreground transition-colors hover:border-primary/50 hover:text-primary xl:flex"
-            >
-              <Cpu className="h-3.5 w-3.5" />
-            </button>
+            {/* Tools popover — replaces four separate icon buttons */}
+            <div className="relative hidden xl:block" ref={toolsRef}>
+              <button
+                type="button"
+                onClick={() => setIsToolsOpen((open) => !open)}
+                aria-label="أدوات الصوت والذكاء الاصطناعي"
+                aria-expanded={isToolsOpen}
+                aria-haspopup="menu"
+                className="archetype-btn grid h-8 w-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              >
+                <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+              </button>
 
-            {/* Sound */}
-            <button
-              type="button"
-              onClick={toggleSound}
-              title={soundEnabled ? 'إيقاف مؤثرات الصوت' : 'تشغيل مؤثرات الصوت'}
-              aria-label="تبديل مؤثرات الصوت"
-              aria-pressed={soundEnabled}
-              className="archetype-btn hidden h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground xl:flex"
-            >
-              <Volume2 className={cn('h-4 w-4', !soundEnabled && 'opacity-40')} />
-            </button>
+              {isToolsOpen && (
+                <div
+                  role="menu"
+                  className="absolute end-0 top-[calc(100%+0.5rem)] z-50 w-60 rounded-md border border-border bg-surface p-3 shadow-[var(--card-shadow-hover)]"
+                >
+                  <p className="mb-2 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                    الصوت والذكاء الاصطناعي
+                  </p>
+
+                  <label className="mb-1 flex items-center justify-between text-[11.5px] font-medium">
+                    سرعة النطق
+                    <select
+                      value={audioRate}
+                      onChange={(event) => setAudioRate(parseFloat(event.target.value))}
+                      className="h-7 cursor-pointer rounded-sm border border-border bg-transparent px-1 text-[11px] tabular-nums focus:border-primary"
+                    >
+                      <option value="0.6">0.6×</option>
+                      <option value="0.8">0.8×</option>
+                      <option value="0.9">0.9×</option>
+                      <option value="1.0">1.0×</option>
+                      <option value="1.2">1.2×</option>
+                    </select>
+                  </label>
+
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={toggleSound}
+                    aria-pressed={soundEnabled}
+                    className="mt-1 flex w-full items-center justify-between rounded-sm px-1 py-1.5 text-[11.5px] font-medium hover:bg-muted/60"
+                  >
+                    المؤثرات الصوتية
+                    <span className={cn('text-[10px] font-semibold', soundEnabled ? 'text-primary' : 'text-muted-foreground')}>
+                      {soundEnabled ? 'مفعّلة' : 'موقوفة'}
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setIsToolsOpen(false);
+                      setIsGrokModalOpen(true);
+                    }}
+                    className="flex w-full items-center gap-2 rounded-sm px-1 py-1.5 text-[11.5px] font-medium hover:bg-muted/60"
+                  >
+                    <Cpu className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
+                    مفتاح Grok
+                  </button>
+
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setIsToolsOpen(false);
+                      openStudio();
+                    }}
+                    className="flex w-full items-center gap-2 rounded-sm px-1 py-1.5 text-[11.5px] font-medium hover:bg-muted/60"
+                  >
+                    <Palette className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
+                    استوديو التصميم
+                    <span className="kbd ms-auto">T</span>
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* Dark mode */}
             <button
@@ -252,7 +301,7 @@ export function Header({ currentPath }: { currentPath: string }) {
               onClick={toggleDarkMode}
               aria-label="تبديل الوضع الفاتح / الداكن"
               title="تبديل الوضع الفاتح / الداكن"
-              className="archetype-btn relative grid h-8 w-8 place-items-center overflow-hidden rounded-lg text-foreground transition-colors hover:bg-muted/70"
+              className="archetype-btn relative grid h-8 w-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
             >
               <motion.span
                 key={isDarkMode ? 'sun' : 'moon'}
@@ -262,22 +311,11 @@ export function Header({ currentPath }: { currentPath: string }) {
                 className="grid place-items-center"
               >
                 {isDarkMode ? (
-                  <Sun className="h-4 w-4 text-amber-500" />
+                  <Sun className="h-4 w-4 text-amber-500" aria-hidden="true" />
                 ) : (
-                  <Moon className="h-4 w-4" />
+                  <Moon className="h-4 w-4" aria-hidden="true" />
                 )}
               </motion.span>
-            </button>
-
-            {/* Design studio (desktop shortcut) */}
-            <button
-              type="button"
-              onClick={openStudio}
-              aria-label="استوديو التصميم"
-              title="استوديو التحول المعماري"
-              className="archetype-btn hidden h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface/70 text-foreground transition-colors hover:border-primary/50 hover:text-primary 2xl:flex"
-            >
-              <Palette className="h-3.5 w-3.5" />
             </button>
 
             {/* Mobile trigger */}
@@ -286,23 +324,22 @@ export function Header({ currentPath }: { currentPath: string }) {
               onClick={() => setIsMobileOpen(true)}
               aria-label="فتح القائمة"
               aria-expanded={isMobileOpen}
-              className="archetype-btn grid h-8 w-8 place-items-center rounded-lg border border-border bg-surface/70 text-foreground lg:hidden"
+              className="archetype-btn grid h-8 w-8 place-items-center rounded-md border border-border text-foreground lg:hidden"
             >
-              <Menu className="h-4 w-4" />
+              <Menu className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>
 
-        {/* Daily goal micro progress */}
-        <div className="container pb-1.5">
-          <div className="flex items-center gap-2">
-            <span className="hidden items-center gap-1 text-[9px] font-black uppercase tracking-[0.14em] text-muted-foreground sm:flex">
-              <TrendingUp className="h-3 w-3 text-primary" />
-              هدف اليوم {xpToday}/{dailyGoalXp} XP
+        {/* Daily goal — a hairline, not a bar chart */}
+        <div className="container pb-2">
+          <div className="flex items-center gap-2.5">
+            <span className="hidden text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground sm:block">
+              هدف اليوم · {xpToday}/{dailyGoalXp} XP
             </span>
-            <div className="h-1 flex-1 overflow-hidden rounded-full bg-muted/50">
+            <div className="h-[2px] flex-1 overflow-hidden bg-border/70">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-primary via-accent to-primary transition-[width] duration-700 ease-out"
+                className="h-full bg-primary transition-[width] duration-700 ease-out"
                 style={{ width: `${goalPercent}%` }}
                 role="progressbar"
                 aria-valuenow={goalPercent}
@@ -311,7 +348,7 @@ export function Header({ currentPath }: { currentPath: string }) {
                 aria-label="تقدّم هدف الخبرة اليومي"
               />
             </div>
-            <span className="text-[9px] font-mono font-bold text-muted-foreground">
+            <span className="text-[9px] font-medium tabular-nums text-muted-foreground">
               {goalPercent}%
             </span>
           </div>

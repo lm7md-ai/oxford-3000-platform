@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
 
 export interface PageHeaderStat {
   label: string;
@@ -48,85 +47,78 @@ export function PageHeader({
 
   return (
     <section
-      className={cn(
-        'archetype-card anim-blur group relative overflow-hidden px-5 py-7 sm:px-8 sm:py-9',
-        centered && 'text-center',
-        className
-      )}
+      className={cn('anim-blur relative border-b border-border pb-7 pt-1 sm:pb-9', centered && 'text-center')}
     >
-      {/* Decorative mesh */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.5]"
-        style={{
-          background:
-            'radial-gradient(70% 120% at 88% -20%, rgb(var(--primary) / 0.22), transparent 62%), radial-gradient(60% 100% at 6% 120%, rgb(var(--accent) / 0.16), transparent 60%)',
-        }}
-      />
-      <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-primary/10 blur-3xl transition-transform duration-700 group-hover:scale-125" />
+      {/* Masthead metadata */}
+      {(badge || eyebrow) && (
+        <div
+          className={cn(
+            'flex flex-wrap items-center justify-between gap-2 pb-3 text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground',
+            centered && 'justify-center'
+          )}
+        >
+          <span className="flex items-center gap-2">
+            {badgeIcon && <span className="text-primary">{badgeIcon}</span>}
+            {badge && <span className="text-foreground">{badge}</span>}
+            {eyebrow && (
+              <>
+                <span aria-hidden="true" className="h-3 w-px bg-border" />
+                <span>{eyebrow}</span>
+              </>
+            )}
+          </span>
+          <span aria-hidden="true" className="hidden h-px flex-1 bg-border/60 sm:block" />
+        </div>
+      )}
 
       <div
         className={cn(
-          'stagger relative z-10 space-y-4',
-          centered && 'mx-auto max-w-2xl',
-          actions && 'sm:flex sm:items-end sm:justify-between sm:gap-6 sm:space-y-0'
+          'stagger grid gap-6',
+          actions ? 'sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end' : 'grid-cols-1'
         )}
       >
-        <div className={cn('space-y-3', centered && 'flex flex-col items-center')}>
-          {(badge || eyebrow) && (
-            <div className="flex flex-wrap items-center gap-2">
-              {badge && (
-                <Badge variant="accent" className="archetype-badge gap-1.5 px-2.5 py-1 text-[11px]">
-                  {badgeIcon}
-                  <span>{badge}</span>
-                </Badge>
-              )}
-              {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-            </div>
-          )}
-
-          <h1 className="text-balance text-2xl font-black leading-[1.15] tracking-tight sm:text-4xl">
+        <div className="space-y-3.5">
+          <h1 className="text-balance text-[1.85rem] font-semibold leading-[1.3] text-foreground sm:text-[2.5rem] sm:leading-[1.22]">
             {title}
             {highlight && (
               <>
                 {' '}
-                <span className="text-gradient">{highlight}</span>
+                <span className="text-primary">{highlight}</span>
               </>
             )}
           </h1>
 
           {description && (
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+            <p className={cn('max-w-[58ch] text-[13.5px] leading-[1.9] text-muted-foreground', centered && 'mx-auto')}>
               {description}
             </p>
           )}
         </div>
 
         {actions && (
-          <div className={cn('flex flex-wrap items-center gap-2 pt-2 sm:pt-0', centered && 'justify-center')}>
+          <div className={cn('flex flex-wrap items-center gap-2', centered && 'justify-center')}>
             {actions}
           </div>
         )}
       </div>
 
       {stats && stats.length > 0 && (
-        <div className="stagger relative z-10 mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        <dl className="stagger mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-4">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="stat-tile !rounded-[calc(var(--radius)*0.85)] !bg-surface/50 !py-2.5"
-            >
-              <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <div key={stat.label} className="bg-surface px-4 py-3">
+              <dt className="flex items-center gap-1.5 text-[9.5px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                 {stat.icon}
                 <span>{stat.label}</span>
-              </div>
-              <div className="mt-1 font-heading text-lg font-black leading-none">{stat.value}</div>
+              </dt>
+              <dd className="mt-1.5 font-heading text-[1.05rem] font-semibold leading-none">
+                {stat.value}
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
       )}
 
-      {children && <div className="relative z-10 mt-5">{children}</div>}
+      {children && <div className="relative mt-6">{children}</div>}
     </section>
   );
 }

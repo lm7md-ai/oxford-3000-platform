@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Gamepad2, Zap, Trophy, Target, Flame } from 'lucide-react';
 import { PageShell } from '@/components/shared/PageShell';
+import { RankIcon } from '@/components/shared/RankIcon';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { GameHub } from '@/features/games/components/GameHub';
 import { useStore, getLevelInfo } from '@/lib/store';
@@ -24,7 +25,7 @@ export default function GamesPage() {
         highlight="والمسابقات"
         description="تحدَّ نفسك باختبارات سرعة، تدريبات أزواج صوتية، وتحديات سلاسل الكلمات — واكسب نقاط خبرة ترفع رتبتك في المعجم."
         stats={[
-          { label: 'المستوى', value: `L${level.level} · ${level.icon}`, icon: <Trophy className="h-3 w-3" /> },
+          { label: 'المستوى', value: `L${level.level}`, icon: <RankIcon level={level.level} className="h-3 w-3" /> },
           { label: 'مجموع XP', value: totalXp, icon: <Zap className="h-3 w-3" /> },
           { label: 'سلسلة', value: `${streak} يوم`, icon: <Flame className="h-3 w-3" /> },
           { label: 'متقنة', value: mastered, icon: <Target className="h-3 w-3" /> },

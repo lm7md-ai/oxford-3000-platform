@@ -367,12 +367,12 @@ export interface XpLevel {
 }
 
 export const XP_LEVELS: XpLevel[] = [
-  { level: 1, min: 0, name: 'Novice Explorer', nameAr: 'مستكشف مبتدئ', icon: '🌱' },
-  { level: 2, min: 250, name: 'Dedicated Lexicist', nameAr: 'معجمي مجتهد', icon: '📗' },
-  { level: 3, min: 750, name: 'Fluency Practitioner', nameAr: 'ممارس الطلاقة', icon: '🎯' },
-  { level: 4, min: 1500, name: 'Oxford Grand Scholar', nameAr: 'عالم أكسفورد', icon: '🎓' },
-  { level: 5, min: 3000, name: 'Lexicon Laureate', nameAr: 'حائز وسام المعجم', icon: '🏛️' },
-  { level: 6, min: 6000, name: 'Oxford Master', nameAr: 'سيد أكسفورد', icon: '👑' },
+  { level: 1, min: 0, name: 'Novice Explorer', nameAr: 'مستكشف مبتدئ', icon: 'sprout' },
+  { level: 2, min: 250, name: 'Dedicated Lexicist', nameAr: 'معجمي مجتهد', icon: 'book-marked' },
+  { level: 3, min: 750, name: 'Fluency Practitioner', nameAr: 'ممارس الطلاقة', icon: 'target' },
+  { level: 4, min: 1500, name: 'Oxford Grand Scholar', nameAr: 'عالم أكسفورد', icon: 'graduation-cap' },
+  { level: 5, min: 3000, name: 'Lexicon Laureate', nameAr: 'حائز وسام المعجم', icon: 'landmark' },
+  { level: 6, min: 6000, name: 'Oxford Master', nameAr: 'سيد أكسفورد', icon: 'crown' },
 ];
 
 export interface LevelInfo extends XpLevel {

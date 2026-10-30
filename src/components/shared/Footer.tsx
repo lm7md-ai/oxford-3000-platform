@@ -10,6 +10,7 @@ import { useStore } from '@/lib/store';
 import { getThemeById } from '@/styles/themes';
 import { OPEN_THEME_STUDIO_EVENT } from './CommandPalette';
 import { getLevelInfo } from '@/lib/store';
+import { RankIcon } from './RankIcon';
 
 export function Footer() {
   const themeId = useStore((state) => state.themeId);
@@ -119,7 +120,7 @@ export function Footer() {
                   الرتبة
                 </span>
                 <span>
-                  {level.icon} {level.nameAr}
+                  <RankIcon level={level.level} className="h-3.5 w-3.5" /> {level.nameAr}
                 </span>
               </p>
               <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-muted/70">

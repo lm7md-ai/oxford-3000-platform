@@ -5,7 +5,6 @@ import {
   Search,
   Star,
   CheckCircle,
-  Sparkles,
   BookOpen,
   LayoutGrid,
   List,
@@ -14,6 +13,7 @@ import {
   RotateCcw,
   Filter,
   X,
+  ArrowLeft,
 } from 'lucide-react';
 import { OXFORD_DATASET, ALPHABET_LETTERS, CEFR_COUNTS } from '@/data/oxfordDataset';
 import { LexiconItem, CefrLevel } from '../types';
@@ -188,22 +188,18 @@ export function LexiconCatalog() {
           }
         }}
         className={cn(
-          'archetype-card group relative overflow-hidden p-5 space-y-3 cursor-pointer select-none bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-          isMastered && 'border-emerald-500/40 bg-emerald-500/[0.03]'
+          'archetype-card group relative space-y-2.5 cursor-pointer select-none bg-surface p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+          isMastered && 'border-emerald-600/30'
         )}
       >
         {/* Top Bar */}
         <div className="flex items-center justify-between" onClick={(event) => event.stopPropagation()}>
           <div className="flex items-center gap-2">
-            <Badge
-              variant={
-                item.cefr === 'A1' ? 'a1' : item.cefr === 'A2' ? 'a2' : item.cefr === 'B1' ? 'b1' : 'b2'
-              }
-              className="archetype-badge text-[11px]"
-            >
+            <span className="ltr-isolate text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
               {item.cefr}
-            </Badge>
-            <span className="text-xs font-mono font-semibold text-muted-foreground">{item.pos}</span>
+            </span>
+            <span className="h-2.5 w-px bg-border" aria-hidden="true" />
+            <span className="ltr-isolate text-[10.5px] font-medium lowercase text-muted-foreground">{item.pos}</span>
           </div>
 
           <div className="flex items-center gap-1">
@@ -234,40 +230,36 @@ export function LexiconCatalog() {
 
         {/* Word & IPA */}
         <div>
-          <h3 className="text-2xl font-black font-heading tracking-tight text-foreground transition-colors group-hover:text-primary ltr-isolate">
+          <h3 className="ltr-isolate font-heading text-[1.35rem] font-semibold leading-none tracking-[-0.01em] text-foreground transition-colors group-hover:text-primary">
             {item.word}
           </h3>
-          <p className="mt-0.5 font-mono text-xs text-muted-foreground ltr-isolate">{item.ipa}</p>
+          <p className="ltr-isolate mt-1.5 font-mono text-[10.5px] text-muted-foreground">{item.ipa}</p>
         </div>
 
-        {/* Meaning Stack Badges */}
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {meanings.slice(0, 2).map((meaning, idx) => (
-            <span
-              key={idx}
-              className="archetype-badge bg-muted/60 px-2 py-0.5 text-xs font-medium text-foreground rtl-text"
-            >
-              {meaning}
-            </span>
-          ))}
+        {/* Meanings */}
+        <p className="line-clamp-1 text-[12.5px] leading-relaxed text-foreground">
+          {meanings.slice(0, 2).join('، ')}
           {meanings.length > 2 && (
-            <span className="self-center text-[10px] font-bold text-muted-foreground">
+            <span className="ms-1 text-[10.5px] font-medium text-muted-foreground">
               +{meanings.length - 2}
             </span>
           )}
-        </div>
+        </p>
 
         {/* Example Sentence */}
-        <p className="line-clamp-2 border-t border-border/40 pt-2 text-xs italic text-muted-foreground ltr-isolate">
-          "{item.example}"
+        <p
+          dir="ltr"
+          className="line-clamp-2 border-t border-border pt-2.5 text-left text-[11px] italic leading-[1.7] text-muted-foreground"
+        >
+          “{item.example}”
         </p>
 
         {/* Quick Action Footer */}
         <div
-          className="flex items-center justify-between gap-2 border-t border-border/50 pt-2"
+          className="flex items-center justify-between gap-2 pt-0.5"
           onClick={(event) => event.stopPropagation()}
         >
-          <AudioPlayButton text={item.word} size="sm" variant="secondary" label="نطق" />
+          <AudioPlayButton text={item.word} size="sm" variant="ghost" label="نطق" />
           <Button
             variant="outline"
             size="sm"
@@ -275,10 +267,10 @@ export function LexiconCatalog() {
               setSelectedPracticeWord(item);
               recordWordView(item.id);
             }}
-            className="archetype-btn gap-1.5 text-xs hover:border-primary/50"
+            className="archetype-btn gap-1 border-transparent px-1.5 text-[11px] font-semibold text-primary hover:bg-primary/5"
           >
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
             تدريب شامل
+            <ArrowLeft className="h-3 w-3" />
           </Button>
         </div>
       </div>
@@ -362,7 +354,7 @@ export function LexiconCatalog() {
   return (
     <div className="space-y-5">
       {/* Search & Filter Controls */}
-      <div className="archetype-card space-y-4 border bg-surface/80 p-4 backdrop-blur-md sm:p-6">
+      <div className="space-y-4 rounded-md border border-border bg-surface p-4 sm:p-5">
         <div className="flex flex-col items-center justify-between gap-3 md:flex-row">
           <div className="relative w-full md:w-96">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -405,7 +397,7 @@ export function LexiconCatalog() {
               <CheckCircle className="h-3.5 w-3.5" />
               المتقنة ({masteredWordIds.length})
             </Button>
-            <div className="flex items-center rounded-lg border border-border bg-surface/60 p-0.5">
+            <div className="flex items-center rounded-md border border-border p-0.5">
               <button
                 type="button"
                 onClick={() => setViewMode('grid')}
@@ -451,9 +443,9 @@ export function LexiconCatalog() {
 
         {/* CEFR Level Selector Pills */}
         <div className="flex flex-wrap items-center gap-2 border-t border-border/50 pt-2">
-          <span className="mr-2 flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            <Filter className="h-3 w-3" />
-            CEFR Level:
+          <span className="me-1 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            <Filter className="h-3 w-3" aria-hidden="true" />
+            المستوى
           </span>
           {(['ALL', 'A1', 'A2', 'B1', 'B2'] as const).map((lvl) => {
             const count =
@@ -465,10 +457,10 @@ export function LexiconCatalog() {
                 onClick={() => setSelectedCefr(lvl)}
                 aria-pressed={isSelected}
                 className={cn(
-                  'archetype-badge cursor-pointer select-none px-3 py-1 text-xs font-bold transition-all',
+                  'ltr-isolate cursor-pointer select-none rounded-sm px-2.5 py-1 text-[11px] font-semibold tabular-nums transition-colors',
                   isSelected
-                    ? 'scale-105 bg-primary text-primary-foreground shadow-sm'
-                    : 'bg-muted text-foreground/80 hover:bg-muted/80'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 {lvl} ({count})
@@ -482,10 +474,10 @@ export function LexiconCatalog() {
           <button
             onClick={() => setSelectedLetter('ALL')}
             className={cn(
-              'archetype-badge px-2 py-1 font-mono text-xs font-bold transition-colors',
+              'ltr-isolate rounded-sm px-2 py-1 text-[11px] font-semibold uppercase tracking-wide transition-colors',
               selectedLetter === 'ALL'
                 ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:bg-muted'
+                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
             )}
           >
             ALL
@@ -496,10 +488,10 @@ export function LexiconCatalog() {
               onClick={() => setSelectedLetter(letter)}
               aria-pressed={selectedLetter === letter}
               className={cn(
-                'archetype-badge flex h-6 w-6 items-center justify-center font-mono text-xs font-bold transition-all',
+                'flex h-6 w-6 items-center justify-center rounded-sm text-[11px] font-semibold uppercase transition-colors',
                 selectedLetter === letter
-                  ? 'scale-110 bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-muted'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               )}
             >
               {letter}
@@ -509,11 +501,13 @@ export function LexiconCatalog() {
       </div>
 
       {/* Results Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Showing <span className="font-bold text-foreground">{filteredData.length}</span> terms
-          (Page {currentPage} of {totalPages}) •{' '}
-          <span className="font-semibold text-primary">Click any card to open Practice Studio</span>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-[11.5px] font-medium text-muted-foreground">
+          <span className="font-semibold tabular-nums text-foreground">{filteredData.length}</span>{' '}
+          كلمة · صفحة <span className="tabular-nums">{currentPage}</span> من{' '}
+          <span className="tabular-nums">{totalPages}</span>
+          <span className="mx-1.5 text-border">|</span>
+          اختر أي بطاقة لفتح الاستوديو
         </p>
         <span className="chip">
           {filteredData.length === OXFORD_DATASET.length
@@ -524,11 +518,9 @@ export function LexiconCatalog() {
 
       {/* Grid / List of Words */}
       {paginatedItems.length === 0 ? (
-        <div className="archetype-card border-dashed bg-surface/30 p-12 text-center">
-          <div className="halo mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full bg-muted/60">
-            <BookOpen className="h-6 w-6 text-muted-foreground" />
-          </div>
-          <h3 className="font-heading text-lg font-bold">لم يتم العثور على كلمات مطابقة</h3>
+        <div className="rounded-md border border-dashed border-border bg-surface/40 p-12 text-center">
+          <BookOpen className="mx-auto mb-3 h-5 w-5 text-muted-foreground/60" aria-hidden="true" />
+          <h3 className="font-heading text-base font-semibold">لا توجد كلمات مطابقة</h3>
           <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
             جرب البحث بصيغة أخرى؛ يدعم النظام البحث بجميع تصاريف ومترادفات المعنى العربي بدون تشكيل.
           </p>

@@ -24,27 +24,27 @@
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    --background: 254 240 138;
+    --background: 251 250 247;
     --surface: 255 255 255;
-    --foreground: 0 0 0;
-    --primary: 124 58 237;
+    --foreground: 20 22 27;
+    --primary: 140 47 57;
     --primary-foreground: 255 255 255;
-    --accent: 244 63 94;
+    --accent: 31 58 95;
     --accent-foreground: 255 255 255;
-    --muted: 253 224 71;
-    --muted-foreground: 0 0 0;
-    --border: 0 0 0;
-    --ring: 124 58 237;
+    --muted: 241 238 232;
+    --muted-foreground: 91 87 80;
+    --border: 227 222 212;
+    --ring: 140 47 57;
     --radius: 0.5rem;
-    --font-heading: 'Clash Display', 'Space Grotesk', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-heading: 'Fraunces', 'IBM Plex Sans Arabic', 'Noto Naskh Arabic', serif;
+    --font-body: 'Inter', 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
 
     /* Depth & physical tokens (overridden per archetype) */
     --surface-raised: 255 255 255;
     --shadow-color: 0 0 0;
-    --card-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.18);
-    --card-shadow-hover: 0 2px 4px rgb(0 0 0 / 0.08), 0 18px 40px -16px rgb(0 0 0 / 0.24);
-    --card-lift: -2px;
+    --card-shadow: 0 1px 1px rgb(0 0 0 / 0.03), 0 2px 8px -4px rgb(0 0 0 / 0.10);
+    --card-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.05), 0 8px 20px -10px rgb(0 0 0 / 0.16);
+    --card-lift: -1px;
     --card-border-width: 1px;
     --hairline: rgb(var(--foreground) / 0.08);
     --texture-opacity: 0.05;
@@ -80,8 +80,8 @@
     --ring: 167 139 250;
     --surface-raised: 48 48 52;
     --hairline: rgb(255 255 255 / 0.1);
-    --card-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -14px rgb(0 0 0 / 0.65);
-    --card-shadow-hover: 0 2px 6px rgb(0 0 0 / 0.5), 0 22px 48px -18px rgb(0 0 0 / 0.7);
+    --card-shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 2px 10px -6px rgb(0 0 0 / 0.5);
+    --card-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.35), 0 10px 26px -14px rgb(0 0 0 / 0.6);
   }
 
   * {
@@ -110,7 +110,24 @@
   h4,
   h5 {
     @apply font-heading;
-    letter-spacing: -0.015em;
+    /* Arabic script must never be negatively tracked — connections break */
+    letter-spacing: 0;
+    font-optical-sizing: auto;
+  }
+
+  h1 { line-height: 1.32; }
+  h2 { line-height: 1.36; }
+  h3 { line-height: 1.42; }
+
+  p,
+  li {
+    line-height: 1.75;
+  }
+
+  /* Latin display tokens may be tightened deliberately */
+  .ltr-isolate,
+  [dir='ltr'] {
+    letter-spacing: -0.01em;
   }
 
   /* Visible, consistent keyboard focus everywhere */
@@ -180,17 +197,23 @@
 /* 2. TYPOGRAPHY & TEXT EFFECTS                                       */
 /* ------------------------------------------------------------------ */
 .text-gradient {
-  background-image: linear-gradient(
-    100deg,
-    rgb(var(--primary)) 0%,
-    rgb(var(--accent)) 55%,
-    rgb(var(--primary)) 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradient-x 9s var(--ease-in-out-soft) infinite;
+  /* Editorial accent: solid ink with a restrained two-tone sweep only on hover */
+  color: rgb(var(--primary));
+  background: none;
+}
+
+.text-accent-rule {
+  position: relative;
+  white-space: nowrap;
+}
+.text-accent-rule::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.12em;
+  height: 2px;
+  background: rgb(var(--primary) / 0.28);
+  border-radius: 2px;
 }
 
 .text-aurora {
@@ -280,8 +303,8 @@
   filter: blur(42px) saturate(1.05);
 }
 [data-archetype='oxford-heritage'] .hero-aurora {
-  opacity: 0.24;
-  filter: blur(46px) saturate(0.85);
+  opacity: 0.1;
+  filter: blur(52px) saturate(0.7);
 }
 [data-archetype='cyber-terminal'] .hero-aurora {
   opacity: 0.5;
@@ -572,13 +595,14 @@
   --texture-opacity: 0.04;
 }
 [data-archetype='oxford-heritage'] .archetype-card {
-  border-left: 3px solid rgb(var(--primary) / 0.55) !important;
-  border-radius: 0.375rem !important;
-  background-image: linear-gradient(180deg, rgb(var(--accent) / 0.05), transparent 40%);
+  border: 1px solid rgb(var(--border)) !important;
+  border-radius: var(--radius) !important;
+  background-image: none;
 }
 [data-archetype='oxford-heritage'] .archetype-card:hover {
-  transform: translateY(-2px) !important;
-  border-left-color: rgb(var(--accent)) !important;
+  transform: translateY(-1px) !important;
+  border-color: rgb(var(--primary) / 0.45) !important;
+  box-shadow: var(--card-shadow-hover) !important;
 }
 [data-archetype='oxford-heritage'] .archetype-btn {
   border-radius: 0.375rem !important;
@@ -755,7 +779,18 @@
   background: rgb(var(--muted) / 0.55);
 }
 .nav-link[data-active='true'] {
-  color: rgb(var(--primary));
+  color: rgb(var(--foreground));
+  font-weight: 800;
+}
+.nav-link[data-active='true']::after {
+  content: '';
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  bottom: 0.15rem;
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(var(--primary));
 }
 
 /* Animated active pill (framer-motion layoutId target) */
@@ -763,7 +798,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: rgb(var(--primary) / 0.12);
+  background: transparent;
   z-index: -1;
 }
 [data-archetype='neo-brutalism'] .nav-active-pill {
@@ -1148,9 +1183,8 @@
   transition: all var(--dur-fast) var(--ease-out-expo);
 }
 .chip:hover {
-  border-color: rgb(var(--primary) / 0.5);
+  border-color: rgb(var(--primary) / 0.45);
   color: rgb(var(--primary));
-  transform: translateY(-1px);
 }
 
 .kbd {
@@ -1181,8 +1215,7 @@
     border-color var(--dur-base) var(--ease-out-expo);
 }
 .stat-tile:hover {
-  transform: translateY(-2px);
-  border-color: rgb(var(--primary) / 0.45);
+  border-color: rgb(var(--primary) / 0.35);
 }
 .stat-tile::after {
   content: '';

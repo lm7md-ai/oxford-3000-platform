@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { BarChart3, Sparkles, Trophy, Target, Flame, Star } from 'lucide-react';
 import { PageShell } from '@/components/shared/PageShell';
+import { RankIcon } from '@/components/shared/RankIcon';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { AnalyticsDashboard } from '@/features/analytics/components/AnalyticsDashboard';
 import { useStore, getLevelInfo } from '@/lib/store';
@@ -29,7 +30,7 @@ export default function AnalyticsPage() {
         stats={[
           { label: 'الإتقان الكلي', value: `${percent}%`, icon: <Target className="h-3 w-3" /> },
           { label: 'كلمات متقنة', value: mastered, icon: <BarChart3 className="h-3 w-3" /> },
-          { label: 'الرتبة', value: `${level.icon} ${level.level}`, icon: <Trophy className="h-3 w-3" /> },
+          { label: 'الرتبة', value: `L${level.level}`, icon: <RankIcon level={level.level} className="h-3 w-3" /> },
           { label: 'سلسلة', value: `${streak} يوم`, icon: <Flame className="h-3 w-3" /> },
         ]}
         actions={
